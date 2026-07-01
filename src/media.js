@@ -1,0 +1,23 @@
+export const MEDIA = [
+    { type: 'img', src: 'https://files.catbox.moe/ip68s4.gif' },
+    { type: 'video', src: 'https://files.catbox.moe/d4q473.mp4' },
+    { type: 'img', src: 'https://files.catbox.moe/c93b61.gif' },
+    { type: 'video', src: 'https://files.catbox.moe/tq738y.mp4' },
+    { type: 'img', src: 'https://files.catbox.moe/1ldsbd.webp' },
+    { type: 'video', src: 'https://files.catbox.moe/mrwu64.mp4' },
+    { type: 'video', src: 'https://files.catbox.moe/jefaai.mp4' },
+    { type: 'img', src: 'https://files.catbox.moe/9fq709.webp' },
+    { type: 'img', src: 'https://files.catbox.moe/s4mpur.webp' },
+    { type: 'video', src: 'https://files.catbox.moe/6mz7jq.mov' },
+    { type: 'video', src: 'https://files.catbox.moe/gpzbam.webm' },
+    { type: 'video', src: 'https://files.catbox.moe/dadet2.mp4' },
+    { type: 'video', src: 'https://files.catbox.moe/wmjlmo.mp4' },
+    { type: 'video', src: 'https://files.catbox.moe/diosno.mp4' },
+    { type: 'video', src: 'https://files.catbox.moe/1eme1b.mp4' },
+    { type: 'img', src: 'https://files.catbox.moe/6ruoik.webp' },
+    { type: 'img', src: 'https://files.catbox.moe/6i8c2j.webp' },
+    { type: 'img', src: 'https://files.catbox.moe/f544y7.webp' },
+    { type: 'img', src: 'https://files.catbox.moe/qzluqd.webp' },
+    { type: 'video', src: 'https://files.catbox.moe/yumu56.mp4' },
+    { type: 'img', src: 'https://files.catbox.moe/k8t2u0.webp' }
+];
