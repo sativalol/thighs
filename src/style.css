@@ -183,15 +183,15 @@ body {
         top: 70px;
         right: 0;
         background: rgba(10, 10, 10, 0.95);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(24px);
-        padding: 20px;
+        padding: 24px 20px;
         border-radius: 20px;
         flex-direction: column;
-        width: 200px;
-        gap: 15px;
+        width: 220px;
+        gap: 16px;
         display: none;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
     }
 
     .nr.show { display: flex; }
@@ -213,7 +213,25 @@ body {
     justify-content: center;
     gap: 32px;
     cursor: pointer;
-    transition: opacity 0.4s, visibility 0.4s;
+    transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.5s;
+    overflow: hidden;
+}
+
+.gt-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.gt-bg * {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px) brightness(0.6);
 }
 
 .gt.h {
@@ -224,21 +242,37 @@ body {
 .a {
     font-family: monospace;
     white-space: pre;
-    font-size: 10px;
-    line-height: 1.1;
+    font-size: 8px;
+    line-height: 1.05;
     color: #ff3366;
     text-align: center;
     font-weight: bold;
     text-shadow: 0 0 25px rgba(255, 51, 102, 0.8);
     animation: j 2.2s infinite ease-in-out;
     will-change: transform;
+    max-width: 95vw;
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .a {
+        font-size: 4.8px;
+        line-height: 1;
+    }
+}
+
+@media (max-width: 400px) {
+    .a {
+        font-size: 3.8px;
+        line-height: 1;
+    }
 }
 
 @keyframes j {
     0%, 100% { transform: scale(1) skewX(0deg); }
-    25% { transform: scale(1.04, 0.96) skewX(-1.5deg); }
-    50% { transform: scale(0.96, 1.04) skewX(1.5deg); }
-    75% { transform: scale(1.02, 0.98) skewX(-0.5deg); }
+    25% { transform: scale(1.02, 0.98) skewX(-1deg); }
+    50% { transform: scale(0.98, 1.02) skewX(1deg); }
+    75% { transform: scale(1.01, 0.99) skewX(-0.5deg); }
 }
 
 .gui {
@@ -246,6 +280,12 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    z-index: 2;
+    background: rgba(2, 2, 2, 0.6);
+    padding: 12px 24px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .gtx {
@@ -268,3 +308,26 @@ body {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
 }
+
+/* Custom layout columns style rules */
+.g.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+.g.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+.g.cols-1 {
+    grid-template-columns: 1fr;
+}
+
+@media (max-width: 768px) {
+    .g.cols-3, .g.cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 480px) {
+    .g.cols-3, .g.cols-2, .g.cols-1 {
+        grid-template-columns: 1fr;
+    }
+}
+
