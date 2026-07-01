@@ -19,12 +19,5 @@ export const MEDIA = [
     { type: 'img', src: 'https://files.catbox.moe/f544y7.webp' },
     { type: 'img', src: 'https://files.catbox.moe/qzluqd.webp' },
     { type: 'video', src: 'https://files.catbox.moe/yumu56.mp4' },
-    { type: 'img', src: 'https://files.catbox.moe/k8t2u0.webp' },
-    { type: 'img', src: 'https://files.catbox.moe/g244v3.gif' },
-    { type: 'video', src: 'https://files.catbox.moe/g69f9o.mp4' },
-    { type: 'img', src: 'https://files.catbox.moe/yby7m6.webp' },
-    { type: 'video', src: 'https://files.catbox.moe/pvh3g1.mp4' },
-    { type: 'img', src: 'https://files.catbox.moe/r5s18g.gif' },
-    { type: 'video', src: 'https://files.catbox.moe/8oxjgd.mp4' },
-    { type: 'img', src: 'https://files.catbox.moe/n86y2l.webp' }
+    { type: 'img', src: 'https://files.catbox.moe/k8t2u0.webp' }
 ];
