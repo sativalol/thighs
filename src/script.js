@@ -7,13 +7,13 @@ const nr = document.getElementById('nr');
 const gt = document.getElementById('gt');
 const art = document.getElementById('gate-art');
 
-const CAP = 60; 
+const CAP = 60;
 
 const vis = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
     if (e.isIntersecting) {
         if (!v.src) v.src = v.dataset.src;
-        if (v.tagName === 'VIDEO') v.play().catch(() => {});
+        if (v.tagName === 'VIDEO') v.play().catch(() => { });
     } else {
         if (v.tagName === 'VIDEO') v.pause();
     }
@@ -54,7 +54,7 @@ function prune() {
 
 function more() {
     MEDIA.forEach(x => g.appendChild(mk(x)));
-    g.appendChild(sen); 
+    g.appendChild(sen);
     prune();
 }
 
@@ -94,7 +94,7 @@ gt.onclick = () => {
     g.appendChild(sen);
     lMore.observe(sen);
     g.querySelectorAll('video').forEach(v => {
-        if (v.src) v.play().catch(() => {});
+        if (v.src) v.play().catch(() => { });
     });
 };
 
@@ -116,12 +116,24 @@ btn.className = 'lk col-toggle';
 btn.textContent = 'columns';
 btn.style.cursor = 'pointer';
 
+const mobBtn = document.createElement('a');
+mobBtn.href = '#';
+mobBtn.className = 'b';
+mobBtn.textContent = 'columns';
+mobBtn.style.cursor = 'pointer';
+
 let cols = 3;
-btn.onclick = (e) => {
+const toggleCols = (e) => {
     e.preventDefault();
     cols = cols === 3 ? 2 : (cols === 2 ? 1 : 3);
     g.className = `g cols-${cols}`;
 };
+
+btn.onclick = toggleCols;
+mobBtn.onclick = toggleCols;
+
 document.querySelector('.nl').appendChild(btn);
+document.querySelector('.nr').appendChild(mobBtn);
+
 
 
