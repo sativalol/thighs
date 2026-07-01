@@ -1,88 +1,59 @@
 import { MEDIA } from './media.js';
-import { GATE_ASCII } from './ascii-art.js';
+import { thighs } from './ascii.js';
 
-const grid = document.getElementById('g');
-const menuBtn = document.getElementById('m');
-const navRight = document.getElementById('nr');
-const gate = document.getElementById('gt');
-const gateArt = document.getElementById('gate-art');
+const g = document.getElementById('g');
+const m = document.getElementById('m');
+const nr = document.getElementById('nr');
+const gt = document.getElementById('gt');
+const art = document.getElementById('gate-art');
 
-let isTicking = false;
+let busy = false;
 
-function createMediaElement({ type, src }) {
-    if (type === 'video') {
-        const video = document.createElement('video');
-        video.src = src;
-        video.loop = true;
-        video.muted = true;
-        video.autoplay = true;
-        video.playsInline = true;
-        return video;
-    }
-    const img = document.createElement('img');
-    img.src = src;
-    return img;
+function mk({ type, src }) {
+    const el = document.createElement(type === 'video' ? 'video' : 'img');
+    el.src = src;
+    if (type === 'video') Object.assign(el, { loop: true, muted: true, autoplay: true, playsInline: true });
+    return el;
 }
 
-function renderInitialGrid() {
-    const fragment = document.createDocumentFragment();
-    MEDIA.forEach(item => fragment.appendChild(createMediaElement(item)));
-    grid.appendChild(fragment);
+function fill() {
+    MEDIA.forEach(x => g.appendChild(mk(x)));
 }
 
-function loadMore() {
-    const fragment = document.createDocumentFragment();
-    Array.from(grid.children).slice(0, MEDIA.length).forEach(node => {
-        const clone = node.cloneNode(true);
-        if (clone.tagName === 'VIDEO') {
-            clone.currentTime = 0;
-            clone.play().catch(() => {});
-        }
-        fragment.appendChild(clone);
-    });
-    grid.appendChild(fragment);
-}
-
-function toggleMobileMenu() {
-    menuBtn.classList.toggle('open');
-    navRight.classList.toggle('show');
-}
-
-function onGridScroll() {
-    if (isTicking) return;
-    isTicking = true;
-    window.requestAnimationFrame(() => {
-        if (grid.scrollTop + grid.clientHeight >= grid.scrollHeight - 1000) {
-            loadMore();
-        }
-        isTicking = false;
+function more() {
+    [...g.children].slice(0, MEDIA.length).forEach(n => {
+        const c = n.cloneNode(true);
+        if (c.tagName === 'VIDEO') c.play().catch(() => {});
+        g.appendChild(c);
     });
 }
 
-function enterSite() {
-    grid.style.display = 'grid';
-    gate.classList.add('h');
-    grid.addEventListener('scroll', onGridScroll, { passive: true });
-}
+m.onclick = () => {
+    m.classList.toggle('open');
+    nr.classList.toggle('show');
+};
 
-function blockInspection() {
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-        const blocked =
-            e.key === 'F12' ||
-            (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
-            (e.ctrlKey && e.key.toLowerCase() === 'u');
-        if (blocked) e.preventDefault();
-    });
-    document.addEventListener('dragstart', e => e.preventDefault());
-}
+gt.onclick = () => {
+    g.style.display = 'grid';
+    gt.classList.add('h');
+    g.addEventListener('scroll', () => {
+        if (busy) return;
+        busy = true;
+        requestAnimationFrame(() => {
+            if (g.scrollTop + g.clientHeight >= g.scrollHeight - 1000) more();
+            busy = false;
+        });
+    }, { passive: true });
+};
 
-function init() {
-    gateArt.textContent = GATE_ASCII;
-    renderInitialGrid();
-    menuBtn.addEventListener('click', toggleMobileMenu);
-    gate.addEventListener('click', enterSite);
-    blockInspection();
-}
+document.oncontextmenu = e => e.preventDefault();
+document.ondragstart = e => e.preventDefault();
+document.onkeydown = e => {
+    const nope = e.key === 'F12'
+        || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))
+        || (e.ctrlKey && e.key.toLowerCase() === 'u');
+    if (nope) e.preventDefault();
+};
 
-init();
+art.textContent = thighs;
+fill();
