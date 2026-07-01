@@ -7,26 +7,21 @@ const nr = document.getElementById('nr');
 const gt = document.getElementById('gt');
 const art = document.getElementById('gate-art');
 
-const CAP = 60; // dont let the dom grow forever
+const CAP = 60; 
 
 const vis = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
-    if (e.isIntersecting) {
-        if (!v.src) v.src = v.dataset.src;
-        v.play().catch(() => {});
-    } else {
-        v.pause();
-    }
+    if (e.isIntersecting && !v.src) v.src = v.dataset.src;
 }), { rootMargin: '200px 0px' });
 
 function mk({ type, src }) {
     if (type === 'video') {
         const v = document.createElement('video');
         v.dataset.src = src;
-        v.loop = true;
         v.muted = true;
-        v.playsInline = true;
-        v.preload = 'none'; 
+        v.controls = false;
+        v.preload = 'none';
+        v.onplay = () => v.pause(); 
         vis.observe(v);
         return v;
     }
@@ -40,6 +35,7 @@ function mk({ type, src }) {
 function fill() {
     MEDIA.forEach(x => g.appendChild(mk(x)));
 }
+
 function prune() {
     while (g.children.length > CAP) {
         const dead = g.firstElementChild;
